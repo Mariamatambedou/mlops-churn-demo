@@ -1,0 +1,33 @@
+stages:
+    ingest:
+        cmd: python src/ingestion.py
+        deps:
+            - src/ingestion.py
+            - data/churn.csv
+        outs:
+            - data/raw/churn.csv
+    
+    preprocess:
+        cmd: python src/preprocessing.py
+        deps:
+            - src/preprocessing.py
+            - data/raw/churn.csv
+        outs:
+            - data/processed
+    
+    train:
+        cmd: python src/train.py
+        deps:
+            - src/train.py
+            - data/processed
+        outs:
+            - models/model.pkl
+    
+    evaluate:
+        cmd: python src/evaluate.py
+        deps:
+            - src/evaluate.py
+            - models/model.pkl
+            - data/processed
+        outs:
+            - metrics/eval.json

@@ -1,36 +1,32 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from pathlib import Path
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
+import joblib
 import wandb
 
-wandb.init(project="churn-mlops-beginner")
+wandb.init(project="churn-mlops")
 
-df = pd.read_csv("data/churn.csv")
+DATA_DIR = Path("data/processed")
 
-df = df.dropna()
+X_train = pd.read_csv(DATA_DIR / "X_train.csv")
+X_test = pd.read_csv(DATA_DIR / "X_test.csv")
+y_train = pd.read_csv(DATA_DIR / "y_train.csv").squeeze()
+y_test = pd.read_csv(DATA_DIR / "y_test.csv").squeeze()
 
-X = df.drop(columns=["Churn"])
-y = df["Churn"].map({"Yes": 1, "No": 0})
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X.select_dtypes(include="number"),
-    y,
-    test_size=0.2,
-    random_state=42,
-)
-
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
-
-model = LogisticRegression()
+model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 
 preds = model.predict_proba(X_test)[:, 1]
 roc = roc_auc_score(y_test, preds)
 
 wandb.log({"roc_auc": roc})
+
+MODEL_PATH = Path("models")
+MODEL_PATH.mkdir(exist_ok=True)
+
+joblib.dump(model, MODEL_PATH / "model.pkl")
+
+wandb.save(str(MODEL_PATH / "model.pkl"))
 
 print("ROC AUC:", roc)
