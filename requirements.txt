@@ -1,0 +1,8 @@
+pandas
+scikit-learn
+joblib
+dvc
+wandb
+fastapi
+uvicorn
+evidently
