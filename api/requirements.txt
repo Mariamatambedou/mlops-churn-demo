@@ -1,10 +1,8 @@
 pandas
-scikit-learn
+scikit-learn==1.8.0
 joblib
-dvc
 wandb
+dvc
 fastapi
 uvicorn
 evidently
-dvc[s3]
-
