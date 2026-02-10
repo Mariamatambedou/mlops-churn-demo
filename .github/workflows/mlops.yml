@@ -24,3 +24,11 @@ jobs:
             - name: Push churn-train image
               run: |
                   docker push ${{ secrets.DOCKER_USERNAME }}/churn-train:latest
+            
+            - name: Build churn-api image
+              run: |
+                  docker build -f Dockerfile.api -t ${{ secrets.DOCKER_USERNAME }}/churn-api:latest .
+            
+            - name: Push churn-api image
+              run: |
+                  docker push ${{ secrets.DOCKER_USERNAME }}/churn-api:latest

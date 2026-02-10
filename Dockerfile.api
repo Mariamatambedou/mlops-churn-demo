@@ -7,10 +7,13 @@ RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 COPY api/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+COPY .dvc .dvc
+COPY dvc.yaml .
+COPY dvc.lock .
+COPY .dvc/config .dvc/config
+
 COPY api ./api
 
-# fichiers DVC
-COPY dvc.yaml dvc.lock .dvc/config ./
+RUN git init
 
-CMD dvc pull && \
-    uvicorn api.main:app --host 0.0.0.0 --port 8000
+CMD bash -c "dvc pull && uvicorn api.main:app --host 0.0.0.0 --port 8000"
