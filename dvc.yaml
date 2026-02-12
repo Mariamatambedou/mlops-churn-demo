@@ -1,11 +1,5 @@
 stages:
-    ingest:
-        cmd: python src/ingestion.py
-        deps:
-            - src/ingestion.py
-            - data/churn.csv
-        outs:
-            - data/raw/churn.csv
+    
     
     preprocess:
         cmd: python src/preprocessing.py
