@@ -13,5 +13,6 @@ COPY . .
 
 ENV WANDB_MODE=online
 
-CMD dvc repro && dvc push
+CMD dvc pull && dvc repro && dvc push
+
 
