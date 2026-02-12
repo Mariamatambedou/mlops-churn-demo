@@ -13,6 +13,7 @@ COPY . .
 
 ENV WANDB_MODE=online
 
-CMD dvc pull && dvc repro && dvc push
+CMD ["bash", "-c", "dvc pull && dvc checkout && dvc repro"]
+
 
 
