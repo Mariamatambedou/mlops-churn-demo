@@ -3,7 +3,6 @@ __pycache__/
 *.pyc
 
 .dvc/cache
-data/raw
 data/interim
 data/processed
 models

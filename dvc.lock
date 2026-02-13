@@ -3,14 +3,14 @@ stages:
   preprocess:
     cmd: python src/preprocessing.py
     deps:
-    - path: data/churn.csv
+    - path: data/raw/churn.csv
       hash: md5
       md5: 0f9de68e012bd3aed5fa7cdc9fc421af
       size: 977501
     - path: src/preprocessing.py
       hash: md5
-      md5: dbe574d3e6ae10949ea9778fed29c14d
-      size: 1855
+      md5: e91faf30e096c7cc7e98d3deae299dc8
+      size: 1859
     outs:
     - path: data/processed
       hash: md5
