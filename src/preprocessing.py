@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import joblib
 
-RAW_PATH = Path("data/raw/churn.csv")
+RAW_PATH = Path("data/churn.csv")
 PROCESSED_DIR = Path("data/processed")
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 

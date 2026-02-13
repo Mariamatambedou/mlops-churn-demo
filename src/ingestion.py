@@ -4,7 +4,7 @@ from pathlib import Path
 RAW_DIR = Path("data/raw")
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 
-SOURCE_FILE = Path("data/raw/churn.csv")
+SOURCE_FILE = Path("data/churn.csv")
 DEST_FILE = RAW_DIR / "churn.csv"
 
 print("Copying raw data...")
