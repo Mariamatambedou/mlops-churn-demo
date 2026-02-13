@@ -13,7 +13,6 @@ logs
 
 .env
 
-*.csv
 *.parquet
 *.zip
 *.tar.gz
