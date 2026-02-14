@@ -55,3 +55,10 @@ stages:
       hash: md5
       md5: 47c117a7d67442c737661caee5de61a3
       size: 31
+  ingest:
+    cmd: python src/ingestion.py
+    outs:
+    - path: data/raw/churn.csv
+      hash: md5
+      md5: 0f9de68e012bd3aed5fa7cdc9fc421af
+      size: 977501
