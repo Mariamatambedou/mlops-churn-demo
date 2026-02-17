@@ -7,6 +7,7 @@ on:
             - Dockerfile
             - Dockerfile.api
             - requirements.txt
+            - api/**
 
 jobs:
     build-and-push:
