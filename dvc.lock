@@ -22,29 +22,29 @@ stages:
     deps:
     - path: data/processed
       hash: md5
-      md5: a315bac6cc3c94c57446297e9767d70e.dir
-      size: 441839
+      md5: 57bd791d247c82c07b0a09de157616aa.dir
+      size: 439386
       nfiles: 5
     - path: src/train.py
       hash: md5
-      md5: bc8b9c828854b76a5bc74037a046aeae
-      size: 1002
+      md5: bf203ec3f419bfaefec62b15a9b077fa
+      size: 1246
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: a5153f88542df32c9b496a99610ddc4b
+      md5: 3c3a20cfd067defe30879a635d89ff98
       size: 1183
   evaluate:
     cmd: python src/evaluate.py
     deps:
     - path: data/processed
       hash: md5
-      md5: a315bac6cc3c94c57446297e9767d70e.dir
-      size: 441839
+      md5: 57bd791d247c82c07b0a09de157616aa.dir
+      size: 439386
       nfiles: 5
     - path: models/model.pkl
       hash: md5
-      md5: a5153f88542df32c9b496a99610ddc4b
+      md5: 3c3a20cfd067defe30879a635d89ff98
       size: 1183
     - path: src/evaluate.py
       hash: md5
@@ -53,7 +53,7 @@ stages:
     outs:
     - path: metrics/eval.json
       hash: md5
-      md5: 47c117a7d67442c737661caee5de61a3
+      md5: 1c017a611647f516bf3f532b4e88c217
       size: 31
   ingest:
     cmd: python src/ingestion.py
