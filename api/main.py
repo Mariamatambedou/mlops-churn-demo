@@ -1,26 +1,26 @@
+from pathlib import Path
+import joblib
+import pandas as pd
+import wandb
 from fastapi import FastAPI
 from pydantic import BaseModel
-import pandas as pd
-import joblib
-import wandb
-from pathlib import Path
 
 app = FastAPI(title="Churn Prediction API")
 
-# -----------------------------
-# Load model from W&B Registry
-# -----------------------------
+# -------------------
+# W&B settings
+# -------------------
 WANDB_PROJECT = "churn-mlops"
-WANDB_ENTITY = "tambedou89mariama-baamtu"
+WANDB_MODEL_NAME = "churn_model"
+WANDB_ALIAS = "production"
 
-run = wandb.init(
-    project=WANDB_PROJECT,
-    entity=WANDB_ENTITY,
-    job_type="inference"
-)
+# -------------------
+# Download model from W&B
+# -------------------
+run = wandb.init(project=WANDB_PROJECT, job_type="inference")
 
 artifact = run.use_artifact(
-    "churn_model:production",
+    f"{WANDB_PROJECT}/{WANDB_MODEL_NAME}:{WANDB_ALIAS}",
     type="model"
 )
 
@@ -28,20 +28,19 @@ artifact_dir = artifact.download()
 
 model = joblib.load(Path(artifact_dir) / "model.pkl")
 
-# -----------------------------
-# Input schema
-# -----------------------------
+# -------------------
+# API schema
+# -------------------
 class Customer(BaseModel):
     tenure: int
     monthly_charges: float
     total_charges: float
 
-# -----------------------------
-# Routes
-# -----------------------------
+
 @app.get("/")
 def health():
     return {"status": "ok"}
+
 
 @app.post("/predict")
 def predict(data: Customer):
